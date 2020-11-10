@@ -1,0 +1,19 @@
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  margin: auto;
+  padding-top: 15%;
+}
+.btn {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  font-size: 25px;
+}
+.btn:hover {
+  background-color: black;
+  color: white;
+}

@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import "./Login.css";
+import {
+  loginWithEmailPassword,
+  loginWithGoogle,
+} from "../../api/firebase/Auth";
 
 //giving status as paramater so when sidebar in OnClick the text will have Wrapper for a padding-left
 export default function Login({ sidebarStatus }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const validateForm = () => {
-    return email.length > 0 && password.length > 0;
-  };
   return (
     <>
       {sidebarStatus ? (
@@ -25,10 +23,21 @@ export default function Login({ sidebarStatus }) {
 }
 
 function LoginComponent() {
-  //useHistory when onClick on logo to redirect to SignUp page
-
+  //useHistory when onClick on logo to redirect to SignUp page and profile page
   const history = useHistory();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // function redirect to signup page
   const goToSignUp = () => history.push("/signup");
+
+  const doLoginWithEmailPassword = async () => {
+    loginWithEmailPassword(email, password, history);
+  };
+
+  const doLoginWithGoogle = async () => {
+    loginWithGoogle(history);
+  };
 
   return (
     <LoginWrapper>
@@ -36,16 +45,28 @@ function LoginComponent() {
         type="text"
         name="username"
         placeholder="Username"
+        onChange={(event) => {
+          setEmail(event.target.value);
+        }}
         required
       ></input>
       <input
         type="password"
         name="password"
         placeholder="Password"
+        onChange={(event) => {
+          setPassword(event.target.value);
+        }}
         required
       ></input>
-      <input type="submit" value="Login"></input>
-      <a class="google btn">Login with Google</a>
+      <input
+        type="submit"
+        value="Login"
+        onClick={doLoginWithEmailPassword}
+      ></input>
+      <a class="google btn" onClick={doLoginWithGoogle}>
+        Login with Google
+      </a>
       <a class="signup btn" onClick={goToSignUp}>
         Sign Up{" "}
       </a>

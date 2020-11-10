@@ -7,13 +7,17 @@ export default function Exercises({ sidebarStatus }) {
     <>
       {sidebarStatus ? (
         <Wrapper>
-          <p>Exercises</p>
+          <ExercisesComponent></ExercisesComponent>
         </Wrapper>
       ) : (
-        <p>Exercises</p>
+        <ExercisesComponent></ExercisesComponent>
       )}
     </>
   );
+}
+
+function ExercisesComponent() {
+  return <p>Exercises</p>;
 }
 
 const Wrapper = styled.div`

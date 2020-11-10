@@ -7,13 +7,17 @@ export default function Stats({ sidebarStatus }) {
     <>
       {sidebarStatus ? (
         <Wrapper>
-          <p>Stats</p>
+          <StatsComponent></StatsComponent>
         </Wrapper>
       ) : (
-        <p>Stats</p>
+        <StatsComponent></StatsComponent>
       )}
     </>
   );
+}
+
+function StatsComponent() {
+  return <p>Stats</p>;
 }
 
 const Wrapper = styled.div`

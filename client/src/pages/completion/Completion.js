@@ -7,13 +7,17 @@ export default function Completion({ sidebarStatus }) {
     <>
       {sidebarStatus ? (
         <Wrapper>
-          <p>Completion</p>
+          <CompletionComponent></CompletionComponent>
         </Wrapper>
       ) : (
-        <p>Completion</p>
+        <CompletionComponent></CompletionComponent>
       )}
     </>
   );
+}
+
+function CompletionComponent() {
+  return <p>Completion</p>;
 }
 
 const Wrapper = styled.div`

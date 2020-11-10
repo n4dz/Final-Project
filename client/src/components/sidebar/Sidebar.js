@@ -48,7 +48,7 @@ export default function Sidebar() {
                 <AiOutlineClose />
               </Link>
             </li>
-            {/* Loop over sidebarData */}
+            {/* Loop over sidebarData to show in sidebar menu*/}
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
