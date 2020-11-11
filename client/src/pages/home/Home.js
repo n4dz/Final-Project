@@ -31,7 +31,7 @@ const Wrapper = styled.div`
 `;
 
 const HomeWrapper = styled.div`
-  background-image: url("https://steamcdn-a.akamaihd.net/steamcommunity/public/images/items/239160/f2b81de7d19eb3d3dcea52ab5011d8fcf0f4c97a.jpg");
+  background-image: url("https://img4.goodfon.com/wallpaper/big/0/34/beg-kedy-krosovki-krosy-voda-bryzgi-naik-nogi.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

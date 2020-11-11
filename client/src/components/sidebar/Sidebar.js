@@ -12,6 +12,8 @@ import "./Sidebar.css";
 
 import Home from "../../pages/home/Home";
 import Profile from "../../pages/profile/Profile";
+import ProfileFollowing from "../../pages/profile-following/ProfileFollowing";
+import ProfileFollowers from "../../pages/profile-followers/ProfileFollowers";
 import Stats from "../../pages/stats/Stats";
 import Login from "../../pages/login/Login";
 import Exercises from "../../pages/exercises/Exercises";
@@ -65,6 +67,12 @@ export default function Sidebar() {
       <Switch>
         <Route path="/" exact>
           <Home sidebarStatus={sidebarVisibility} />
+        </Route>
+        <Route path="/profile/following">
+          <ProfileFollowing sidebarStatus={sidebarVisibility} />
+        </Route>
+        <Route path="/profile/followers">
+          <ProfileFollowers sidebarStatus={sidebarVisibility} />
         </Route>
         <Route path="/profile">
           <Profile sidebarStatus={sidebarVisibility} />
