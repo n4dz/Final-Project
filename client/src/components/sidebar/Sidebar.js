@@ -19,6 +19,7 @@ import Login from "../../pages/login/Login";
 import Exercises from "../../pages/exercises/Exercises";
 import Completion from "../../pages/completion/Completion";
 import SignUp from "../../pages/signup/SignUp";
+import Error from "../../pages/error/Error";
 
 export default function Sidebar() {
   const history = useHistory();
@@ -91,6 +92,9 @@ export default function Sidebar() {
         </Route>
         <Route path="/signup">
           <SignUp sidebarStatus={sidebarVisibility} />
+        </Route>
+        <Route path="/error">
+          <Error sidebarStatus={sidebarVisibility} />
         </Route>
       </Switch>
     </>

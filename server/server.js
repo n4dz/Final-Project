@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 // const admin = require("firebase-admin");
-const { verifyToken } = require("./handlers");
+const { verifyToken, getProfile } = require("./handlers");
 
 // get acces to serviceAccountKey file (firebase credentials)
 // const serviceAccount = require("./serviceAccountKey.json");
@@ -16,14 +16,14 @@ const PORT = process.env.PORT || 8000;
 
 express()
   .use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header(
       "Access-Control-Allow-Methods",
       "OPTIONS, HEAD, GET, PUT, POST, DELETE"
     );
     res.header(
       "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
     );
     next();
   })
@@ -33,6 +33,7 @@ express()
   .use(express.urlencoded({ extended: false }))
 
   // Endpoints
-  .post("/verify-token", verifyToken)
+  .get("/verify-token", verifyToken)
+  .get("/profile", getProfile)
 
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

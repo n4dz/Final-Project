@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { verifyTokenValidity } from "../../api/firebase/Auth";
+import { BiTime } from "react-icons/bi";
+import {
+  verifyTokenValidity,
+  getFireBaseProfile,
+} from "../../api/firebase/Auth";
 import "./Profile.css";
 
 //giving status as paramater so when sidebar in OnClick the text will have Wrapper for a padding-left
@@ -21,10 +25,17 @@ export default function Profile({ sidebarStatus }) {
 
 function ProfileComponent() {
   const history = useHistory();
+  const currentToken = sessionStorage.getItem("@token");
 
-  const isUserAuthenticated = async () => {
-    const currentToken = sessionStorage.getItem("@token");
-    verifyTokenValidity(currentToken, history);
+  const [profileInformations, setProfileInformations] = useState("");
+  const [connectionTime, setConnectionTime] = useState(
+    "Show last connection time"
+  );
+
+  const editConnectionTime = async () => {
+    // verifyTokenValidity(currentToken, history);
+    // console.log(profileInformations.metadata.lastSignInTime);
+    setConnectionTime(profileInformations.metadata.lastSignInTime);
   };
 
   // function redirect to followers page
@@ -32,14 +43,31 @@ function ProfileComponent() {
   // function redirect to following page
   const goToProfileFollowing = () => history.push("/profile/following");
 
+  // calling backend API to GET specific company name
+  React.useEffect(() => {
+    getFireBaseProfile(currentToken, history, setProfileInformations);
+    // sleep(5000).then(() => {
+    //   console.log("done");
+    // });
+
+    // console.log(profileInformations.metadata.lastSignInTime);
+  }, []);
+
+  // let aaa = profileInformations["metadata"].lastSignInTime;
+  // let metadata = profileInformations.metadata.lastSignInTime;
+
   return (
     <>
       <ProfileWrapper>
         <ProfileCard>
           <ProfileImg src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/768px-Circle-icons-profile.svg.png"></ProfileImg>
 
-          <ProfileName>Elvis Presley</ProfileName>
-          <Address>Canada</Address>
+          <ProfileName>{profileInformations.email}</ProfileName>
+          {/* <Address>{profileInformations.metadata.lastSignInTime}</Address> */}
+          {/* {profileInformations.metadata.values((val) => (
+            <Address>{val.lastSignInTime}</Address>
+          ))} */}
+          <br />
           <p onClick={goToProfileFollowing}>
             <span class="badge">332</span> Following
           </p>
@@ -47,7 +75,12 @@ function ProfileComponent() {
           <p onClick={goToProfileFollowers}>
             <span class="badge">124</span> Followers
           </p>
-          {/* <button onClick={isUserAuthenticated}>Profile</button> */}
+          <br />
+          <p onClick={editConnectionTime}>
+            <span>
+              <BiTime color="blue"></BiTime> {connectionTime}
+            </span>
+          </p>
         </ProfileCard>
       </ProfileWrapper>
     </>
@@ -79,7 +112,7 @@ const ProfileImg = styled.img`
 `;
 
 // const ProfileWrapper = styled.div`
-//   background-image: url("https://www.pixelstalk.net/wp-content/uploads/2016/04/Images-free-abstract-minimalist-wallpaper-HD.jpg");
+//   background-image: url("https://cdn.shopify.com/s/files/1/0097/2944/1856/files/col-gym-accessories_e6dd4062-b8cc-4f42-8b5f-5a14a2393001.jpg");
 //   background-repeat: no-repeat;
 //   background-position: center;
 //   background-size: cover;

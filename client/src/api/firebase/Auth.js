@@ -87,13 +87,15 @@ const signUpWithEmailPassword = async (email, password, history) => {
 const verifyTokenValidity = async (token, history) => {
   if (token) {
     // calling backend API to validate token
-
+    // using Authorization header to pass token since we do a GET request
+    //https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue/18311469#18311469 (BE)
     const options = {
-      method: "POST",
+      method: "GET",
       headers: {
+        Authorization: "Bearer " + token,
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
-      body: JSON.stringify({ token: token }),
     };
 
     const response = await fetch(`http://localhost:8000/verify-token`, options)
@@ -111,10 +113,40 @@ const verifyTokenValidity = async (token, history) => {
   }
 };
 
+const getFireBaseProfile = async (token, history, setProfileInformations) => {
+  if (token) {
+    // calling backend API to get firebase profile info
+    // using Authorization header to pass token since we do a GET request
+    //https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue/18311469#18311469 (BE)
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    const response = await fetch(`http://localhost:8000/profile`, options)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setProfileInformations(json);
+      })
+      .catch(function (error) {
+        if (error.status == 403) {
+          history.push("/login");
+        }
+      });
+  }
+};
+
 export {
   verifyTokenValidity,
   loginWithEmailPassword,
   loginWithGoogle,
   signUpWithEmailPassword,
+  getFireBaseProfile,
 };
 // https://dev.to/betiol/how-to-handle-authentication-on-node-js-using-firebase-5ajn

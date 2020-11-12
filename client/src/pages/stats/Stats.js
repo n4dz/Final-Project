@@ -7,19 +7,39 @@ export default function Stats({ sidebarStatus }) {
     <>
       {sidebarStatus ? (
         <Wrapper>
-          <StatsComponent></StatsComponent>
+          <StatsComponent />
         </Wrapper>
       ) : (
-        <StatsComponent></StatsComponent>
+        <StatsComponent />
       )}
     </>
   );
 }
 
 function StatsComponent() {
-  return <p>Stats</p>;
+  return (
+    <StatsWrapper>
+      <Title>
+        C O M M I N G <br /> S O O N !
+      </Title>
+    </StatsWrapper>
+  );
 }
 
 const Wrapper = styled.div`
   padding-left: 15%;
+`;
+
+const StatsWrapper = styled.div`
+  background-image: url("https://i.pinimg.com/736x/08/71/21/0871211a6ee2a67d93eedacf697457aa.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+`;
+
+const Title = styled.h2`
+  color: black;
+  text-align: center;
+  padding-top: 20%;
 `;
