@@ -1,0 +1,11 @@
+.completionCard:hover {
+  background-color: white;
+  color: #4caf50;
+}
+.completionCard {
+  background-color: #4caf50;
+  border-radius: 5%;
+  left: 25%;
+  text-align: center;
+  color: white;
+}

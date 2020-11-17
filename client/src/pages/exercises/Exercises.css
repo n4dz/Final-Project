@@ -1,0 +1,18 @@
+.pauseIcon {
+  opacity: 0;
+}
+.pauseIcon:hover {
+  opacity: 1;
+}
+.completedButton {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.completedButton:hover {
+  background-color: white;
+  color: #4caf50;
+}

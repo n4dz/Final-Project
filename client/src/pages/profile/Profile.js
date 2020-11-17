@@ -95,6 +95,11 @@ const ProfileWrapper = styled.div`
   color: black;
   text-align: center;
   padding-top: 5%;
+  background-image: url("https://lh3.googleusercontent.com/proxy/yiDXWH_hVAsUuhaUs0oWTRf4h6cXf5kbwLR8vHhJJhlQlzcVffRE2q3yyFn00hVqT2jkwBOQH2OHQnA8y3Ej23UHvnmWSGn3cKgqz-AmryzispLzA1B2G3cgwy5Htn11-BU76A");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
 `;
 
 const ProfileCard = styled.div`
@@ -110,14 +115,6 @@ const ProfileImg = styled.img`
   width: 12%;
   height: 12%;
 `;
-
-// const ProfileWrapper = styled.div`
-//   background-image: url("https://cdn.shopify.com/s/files/1/0097/2944/1856/files/col-gym-accessories_e6dd4062-b8cc-4f42-8b5f-5a14a2393001.jpg");
-//   background-repeat: no-repeat;
-//   background-position: center;
-//   background-size: cover;
-//   height: 100vh;
-// `;
 
 const ProfileName = styled.h1`
   color: black;

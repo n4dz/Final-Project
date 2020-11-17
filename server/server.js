@@ -2,7 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 // const admin = require("firebase-admin");
-const { verifyToken, getProfile } = require("./handlers");
+const {
+  verifyToken,
+  getProfile,
+  getExercises,
+  postCompletions,
+  getCompletionsByUserId,
+} = require("./handlers");
 
 // get acces to serviceAccountKey file (firebase credentials)
 // const serviceAccount = require("./serviceAccountKey.json");
@@ -35,5 +41,8 @@ express()
   // Endpoints
   .get("/verify-token", verifyToken)
   .get("/profile", getProfile)
+  .get("/exercises/:category", getExercises)
+  .post("/completions", postCompletions)
+  .get("/completions/:userId", getCompletionsByUserId)
 
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));
