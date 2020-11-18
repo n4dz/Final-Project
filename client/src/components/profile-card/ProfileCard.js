@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { RiUserFollowLine, RiUserUnfollowLine } from "react-icons/ri";
 
-export default function ProfileCard() {
+export default function ProfileCard({ email }) {
   return (
     <ProfileCardWrapper>
       {/* <ImgWrapper
@@ -14,10 +14,10 @@ export default function ProfileCard() {
           backgroundImage: `url(https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Circle-icons-profile.svg/768px-Circle-icons-profile.svg.png)`,
         }}
       ></ProfileCardImgWrapper>
-      <ProfileCardName>Bob</ProfileCardName>
-      <Button>
+      <ProfileCardName>{email}</ProfileCardName>
+      {/* <Button>
         <RiUserFollowLine color="white" />
-      </Button>
+      </Button> */}
     </ProfileCardWrapper>
   );
 }

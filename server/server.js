@@ -8,6 +8,10 @@ const {
   getExercises,
   postCompletions,
   getCompletionsByUserId,
+  getFollowers,
+  getFollowing,
+  deleteFollowers,
+  // deleteFollowing,
 } = require("./handlers");
 
 // get acces to serviceAccountKey file (firebase credentials)
@@ -44,5 +48,9 @@ express()
   .get("/exercises/:category", getExercises)
   .post("/completions", postCompletions)
   .get("/completions/:userId", getCompletionsByUserId)
+  .get("/followers", getFollowers)
+  .get("/following", getFollowing)
+  // .delete("/followers/:followeremail", deleteFollowers)
+  // .delete("/following", deleteFollowing)
 
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

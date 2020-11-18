@@ -217,6 +217,7 @@ const getCompletionsByUserIdFromDB = async (userid) => {
   // .find((obj) => obj.user_id === userid);
 
   // console.log(dataValue);
+  // https://stackoverflow.com/questions/23731869/find-items-from-json-array-using-nodejs
   let completionOfUser = dataValue.filter((it) => it.user_id === userid);
 
   console.log(completionOfUser);
@@ -254,10 +255,142 @@ const getCompletionsByUserId = async (req, res) => {
   }
 };
 
+const getFollowersFromDB = async (userid) => {
+  const data = (await queryDatabase(`follower`)) || {};
+  const dataValue = Object.keys(data).map((item) => data[item]);
+  // .find((obj) => obj.user_id === userid);
+
+  // console.log(dataValue);
+  // https://stackoverflow.com/questions/23731869/find-items-from-json-array-using-nodejs
+  let completionOfUser = dataValue.filter((it) => it.user_id === userid);
+
+  console.log(completionOfUser);
+
+  return completionOfUser || false;
+};
+
+const getFollowers = async (req, res) => {
+  const token = req.headers["authorization"].replace("Bearer ", "");
+  // const userid = req.params.userId;
+  let userid = jwt_decode(token).user_id;
+
+  if (token) {
+    const returningFollowers = await getFollowersFromDB(userid);
+
+    firebaseAuth
+      .verifyIdToken(token)
+      .then(function (decodedToken) {
+        return res.status(200).json(returningFollowers);
+      })
+      .catch(function (error) {
+        // expired or invalid token
+        return res.status(403).json({
+          status: 403,
+          message: false,
+        });
+      });
+  } else {
+    // empty value of token
+    return res.status(404).json({
+      status: 404,
+      message: false,
+    });
+  }
+};
+
+const getFollowingFromDB = async (userid) => {
+  const data = (await queryDatabase(`following`)) || {};
+  const dataValue = Object.keys(data).map((item) => data[item]);
+  // .find((obj) => obj.user_id === userid);
+
+  // console.log(dataValue);
+  // https://stackoverflow.com/questions/23731869/find-items-from-json-array-using-nodejs
+  let completionOfUser = dataValue.filter((it) => it.user_id === userid);
+
+  console.log(completionOfUser);
+
+  return completionOfUser || false;
+};
+
+const getFollowing = async (req, res) => {
+  const token = req.headers["authorization"].replace("Bearer ", "");
+  // const userid = req.params.userId;
+  let userid = jwt_decode(token).user_id;
+
+  if (token) {
+    const returningFollowing = await getFollowingFromDB(userid);
+
+    firebaseAuth
+      .verifyIdToken(token)
+      .then(function (decodedToken) {
+        return res.status(200).json(returningFollowing);
+      })
+      .catch(function (error) {
+        // expired or invalid token
+        return res.status(403).json({
+          status: 403,
+          message: false,
+        });
+      });
+  } else {
+    // empty value of token
+    return res.status(404).json({
+      status: 404,
+      message: false,
+    });
+  }
+};
+
+// const deleteFollowersFromDB = async (userid) => {
+//   const data = (await queryDatabase(`follower`)) || {};
+//   const dataValue = Object.keys(data).map((item) => data[item]);
+//   // .find((obj) => obj.user_id === userid);
+
+//   // console.log(dataValue);
+//   // https://stackoverflow.com/questions/23731869/find-items-from-json-array-using-nodejs
+//   let completionOfUser = dataValue.filter((it) => it.user_id === userid);
+
+//   console.log(completionOfUser);
+
+//   return completionOfUser || false;
+// };
+
+// const deleteFollowers = async (req, res) => {
+//   const token = req.headers["authorization"].replace("Bearer ", "");
+//   // const userid = req.params.userId;
+//   let userid = jwt_decode(token).user_id;
+
+//   if (token) {
+//     const returningFollowers = await deleteFollowersFromDB(userid);
+
+//     firebaseAuth
+//       .verifyIdToken(token)
+//       .then(function (decodedToken) {
+//         return res.status(200).json(returningFollowers);
+//       })
+//       .catch(function (error) {
+//         // expired or invalid token
+//         return res.status(403).json({
+//           status: 403,
+//           message: false,
+//         });
+//       });
+//   } else {
+//     // empty value of token
+//     return res.status(404).json({
+//       status: 404,
+//       message: false,
+//     });
+//   }
+// };
+
 module.exports = {
   verifyToken,
   getProfile,
   getExercises,
   getCompletionsByUserId,
   postCompletions,
+  getFollowers,
+  getFollowing,
+  // deleteFollowers
 };

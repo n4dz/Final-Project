@@ -5,7 +5,7 @@ import { Link, Switch, Route, useHistory } from "react-router-dom";
 import { IconContext } from "react-icons";
 import { FaBars } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
-import { BiLogIn } from "react-icons/bi";
+import { BiLogIn, BiUser } from "react-icons/bi";
 
 import { SidebarData } from "./SidebarData";
 import "./Sidebar.css";
@@ -25,6 +25,13 @@ export default function Sidebar() {
   const history = useHistory();
   const [sidebarVisibility, setSidebarVisibility] = useState(false);
   const showSidebar = () => setSidebarVisibility(!sidebarVisibility);
+  const currentToken = sessionStorage.getItem("@token");
+  let isTokenExisting;
+  if (currentToken) {
+    isTokenExisting = true;
+  } else {
+    isTokenExisting = false;
+  }
   //useHistory when onClick on logo to redirect to homePage
   const goToHome = () => history.push("/");
 
@@ -39,9 +46,16 @@ export default function Sidebar() {
           <span className="menu-title" onClick={goToHome}>
             Fitness +
           </span>
-          <Link to="/login" className="menu-login">
-            <BiLogIn />
-          </Link>
+
+          {!isTokenExisting ? (
+            <Link to="/login" className="menu-login">
+              <BiLogIn />
+            </Link>
+          ) : (
+            <Link to="/profile" className="menu-login">
+              <BiUser />
+            </Link>
+          )}
         </nav>
         {/* show sidebar visibility IF onClick */}
         <nav className={sidebarVisibility ? "nav-menu active" : "nav-menu"}>

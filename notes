@@ -32,3 +32,97 @@ Yoga
 
 3- https://www.verywellfit.com/thmb/6IP2Dk9oA18NfkTZdl5N8u264c0=/1500x1000/filters:no_upscale():max_bytes(150000):strip_icc()/Verywell-03-3567198-Warrior2copy-598b7c57396e5a0010148cc5.gif
 3* https://i.pinimg.com/originals/f8/4a/64/f84a644dd52453b72e7a522fcb4e2eb7.gif
+
+
+7ebe1021-e832-47b2-9948-5f84eee86211
+follower_email
+test@gmail.com
+user_id
+nGGgMKbz9Qe9eDFgNv5U3Ln9Fd13
+
+7ebe1021-e832-47b2-9948-5f84eee86011
+following_email
+test@gmail.com
+user_id
+nGGgMKbz9Qe9eDFgNv5U3Ln9Fd13
+
+
+
+
+
+
+========================================================
+========================================================
+========================================================
+
+
+title Fitness +
+
+alt signup
+FrontEnd->FirebaseAuth: signUpWithEmailPassword
+FirebaseAuth->FrontEnd: creates user
+end
+
+alt login email
+FrontEnd->FirebaseAuth: loginWithEmailPassword
+FirebaseAuth->FrontEnd: sends authentication Bearer token JWT
+end
+
+alt login google
+FrontEnd->FirebaseAuth: loginWithGoogle
+FirebaseAuth->FrontEnd: sends authentication Bearer token JWT
+end
+
+alt profile read on profile page
+FrontEnd->BackEnd: fetch GET /profile with token in Authorization header
+BackEnd->FirebaseAuth: GET /verify-token authentication Bearer token JWT
+FirebaseAuth->BackEnd: return success
+BackEnd->FirebaseDB: read profile of authenticated user
+FirebaseDB->BackEnd: returns profile info from DB
+BackEnd->FrontEnd: returns response with profile info in JSON {}
+end
+
+alt followers read on follower page
+FrontEnd->BackEnd: fetch GET /followers with token in Authorization header
+BackEnd->FirebaseAuth: GET /verify-token authentication Bearer token JWT
+FirebaseAuth->BackEnd: return success
+BackEnd->FirebaseDB: read followers of authenticated user
+FirebaseDB->BackEnd: returns followers info from DB
+BackEnd->FrontEnd: returns response with followers info in JSON {}
+end
+
+alt followings read on following page
+FrontEnd->BackEnd: fetch GET /following with token in Authorization header
+BackEnd->FirebaseAuth: GET /verify-token authentication Bearer token JWT
+FirebaseAuth->BackEnd: return success
+BackEnd->FirebaseDB: read followings of authenticated user
+FirebaseDB->BackEnd: returns followings info from DB
+BackEnd->FrontEnd: returns response with followings info in JSON {}
+end
+
+alt exercises read on exercise page
+FrontEnd->BackEnd: fetch GET /exercises/:category with token in Authorization header
+BackEnd->FirebaseAuth: GET /verify-token authentication Bearer token JWT
+FirebaseAuth->BackEnd: return success
+BackEnd->FirebaseDB: read exercises of authenticated user
+FirebaseDB->BackEnd: returns exercises info from DB
+BackEnd->FrontEnd: returns response with categorized exercises gifs info in JSON {}
+end
+
+alt completions create onclick exercise page
+FrontEnd->BackEnd: fetch POST /completions with token in Authorization header
+BackEnd->FirebaseAuth: GET /verify-token authentication Bearer token JWT
+FirebaseAuth->BackEnd: return success
+BackEnd->FirebaseDB: create completion of authenticated user in DB
+FirebaseDB->BackEnd: returns success
+BackEnd->FrontEnd: returns response with completions info in JSON {}
+end
+
+alt completions read on completion page
+FrontEnd->BackEnd: fetch GET /completions/:userid with token in Authorization header
+BackEnd->FirebaseAuth: GET /verify-token authentication Bearer token JWT
+FirebaseAuth->BackEnd: return success
+BackEnd->FirebaseDB: read completion of authenticated user
+FirebaseDB->BackEnd: returns completions info from DB for the authenticated user
+BackEnd->FrontEnd: returns response with completions info in JSON {}
+end

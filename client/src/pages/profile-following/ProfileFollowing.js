@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import ProfileCard from "../../components/profile-card/ProfileCard";
+import { getFollowingEndpoint } from "../../api/firebase/Database";
 
 //giving status as paramater so when sidebar in OnClick the text will have Wrapper for a padding-left
 export default function ProfileFollowing({ sidebarStatus }) {
@@ -18,23 +20,24 @@ export default function ProfileFollowing({ sidebarStatus }) {
 }
 
 function ProfileFollowingComponent() {
+  const history = useHistory();
+  const currentToken = sessionStorage.getItem("@token");
+
+  const [followings, setFollowings] = useState([]);
+
+  React.useEffect(() => {
+    getFollowingEndpoint(currentToken, history, setFollowings);
+  }, []);
   return (
     <>
       <CardWrapper>
-        <ProfileCard></ProfileCard>
-        <ProfileCard></ProfileCard>
-        <ProfileCard></ProfileCard>
-        <ProfileCard></ProfileCard>
-
-        {/* {Object.keys(cart.indexes).map((element, index) => (
-            <ProfileCard
-              key={`item-order-${index}`}
-              id={element}
-              qty={cart.indexes[element]}
-              setTotal={setTotal}
-              total={total}
-            />
-          ))} */}
+        {followings.map(function (following, index) {
+          return (
+            <>
+              <ProfileCard email={following.following_email}></ProfileCard>
+            </>
+          );
+        })}
       </CardWrapper>
     </>
   );

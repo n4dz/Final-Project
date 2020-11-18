@@ -106,8 +106,68 @@ const getCompletionsEndpoint = async (token, history, setCompletions) => {
   }
 };
 
+const getFollowersEndpoint = async (token, history, setFollowers) => {
+  if (token) {
+    // calling backend API to get firebase profile info
+    // using Authorization header to pass token since we do a GET request
+    //https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue/18311469#18311469 (BE)
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    const response = await fetch(`http://localhost:8000/followers`, options)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setFollowers(json);
+      })
+      .catch(function (error) {
+        if (error.status == 403) {
+          history.push("/login");
+        }
+      });
+  }
+};
+
+const getFollowingEndpoint = async (token, history, setFollowing) => {
+  if (token) {
+    // calling backend API to get firebase profile info
+    // using Authorization header to pass token since we do a GET request
+    //https://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue/18311469#18311469 (BE)
+    const options = {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    };
+
+    const response = await fetch(`http://localhost:8000/following`, options)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setFollowing(json);
+      })
+      .catch(function (error) {
+        if (error.status == 403) {
+          history.push("/login");
+        }
+      });
+  }
+};
+
 export {
   getExercisesEndpoint,
   postCompletionsEndpoint,
   getCompletionsEndpoint,
+  getFollowersEndpoint,
+  getFollowingEndpoint,
 };

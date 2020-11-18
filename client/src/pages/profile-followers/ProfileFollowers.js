@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import ProfileCard from "../../components/profile-card/ProfileCard";
+import { getFollowersEndpoint } from "../../api/firebase/Database";
 
 //giving status as paramater so when sidebar in OnClick the text will have Wrapper for a padding-left
 export default function ProfileFollowers({ sidebarStatus }) {
@@ -18,21 +20,25 @@ export default function ProfileFollowers({ sidebarStatus }) {
 }
 
 function ProfileFollowersComponent() {
+  const history = useHistory();
+  const currentToken = sessionStorage.getItem("@token");
+
+  const [followers, setFollowers] = useState([]);
+
+  React.useEffect(() => {
+    getFollowersEndpoint(currentToken, history, setFollowers);
+  }, []);
+
   return (
     <>
       <CardWrapper>
-        <ProfileCard></ProfileCard>
-        <ProfileCard></ProfileCard>
-
-        {/* {Object.keys(cart.indexes).map((element, index) => (
-            <ProfileCard
-              key={`item-order-${index}`}
-              id={element}
-              qty={cart.indexes[element]}
-              setTotal={setTotal}
-              total={total}
-            />
-          ))} */}
+        {followers.map(function (follower, index) {
+          return (
+            <>
+              <ProfileCard email={follower.follower_email}></ProfileCard>
+            </>
+          );
+        })}
       </CardWrapper>
     </>
   );

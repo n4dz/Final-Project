@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { BiTime } from "react-icons/bi";
+import { FaUserFriends, FaUsers } from "react-icons/fa";
 import {
   verifyTokenValidity,
   getFireBaseProfile,
@@ -69,11 +70,11 @@ function ProfileComponent() {
           ))} */}
           <br />
           <p onClick={goToProfileFollowing}>
-            <span class="badge">332</span> Following
+            <FaUserFriends class="badge"></FaUserFriends> Following
           </p>
           <br />
           <p onClick={goToProfileFollowers}>
-            <span class="badge">124</span> Followers
+            <FaUsers class="badge"></FaUsers> Followers
           </p>
           <br />
           <p onClick={editConnectionTime}>
@@ -95,7 +96,7 @@ const ProfileWrapper = styled.div`
   color: black;
   text-align: center;
   padding-top: 5%;
-  background-image: url("https://lh3.googleusercontent.com/proxy/yiDXWH_hVAsUuhaUs0oWTRf4h6cXf5kbwLR8vHhJJhlQlzcVffRE2q3yyFn00hVqT2jkwBOQH2OHQnA8y3Ej23UHvnmWSGn3cKgqz-AmryzispLzA1B2G3cgwy5Htn11-BU76A");
+  background-image: url("https://phlearn.com/wp-content/uploads/2016/10/blur-background-after-1200px.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -109,6 +110,9 @@ const ProfileCard = styled.div`
   padding-top: 5%;
   padding-bottom: 5%;
   margin: auto;
+  background-color: white;
+  opacity: 0.75;
+  border-radius: 5%;
 `;
 
 const ProfileImg = styled.img`
